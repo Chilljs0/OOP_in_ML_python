@@ -1,6 +1,22 @@
 # OOP_in_ML_python
 **IN PROGRESS** Project in Python that contains a simple, custom OOP based implementations of Machine Learning models.
 
+## Completed Files
+
+- [x] models/__init__.py
+- [x] models/linear_regression.py
+- [x] models/knn.py
+- [ ] preprocessors/__init__.py
+- [ ] preprocessors/encoder.py
+- [ ] preprocessors/scaler.py
+- [ ] evaluators/__init__.py
+- [ ] evaluators/metrics.py
+- [ ] evaluators/evaluator.py
+- [ ] utils/__init__.py
+- [ ] utils/data_loader.py
+- [ ] main.py
+- [ ] requirements.txt
+- [ ] README.md
 
 ## Project Structure
 
