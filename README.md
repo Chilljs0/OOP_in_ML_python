@@ -9,9 +9,9 @@
 - [ ] preprocessors/__init__.py
 - [ ] preprocessors/encoder.py
 - [ ] preprocessors/scaler.py
-- [ ] evaluators/__init__.py
-- [ ] evaluators/metrics.py
-- [ ] evaluators/evaluator.py
+- [x] evaluators/__init__.py
+- [x] evaluators/metrics.py
+- [x] evaluators/evaluator.py
 - [ ] utils/__init__.py
 - [ ] utils/data_loader.py
 - [ ] main.py
