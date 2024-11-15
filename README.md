@@ -6,9 +6,9 @@
 - [x] models/__init__.py
 - [x] models/linear_regression.py
 - [x] models/knn.py
-- [ ] preprocessors/__init__.py
-- [ ] preprocessors/encoder.py
-- [ ] preprocessors/scaler.py
+- [x] preprocessors/__init__.py
+- [x] preprocessors/encoder.py
+- [x] preprocessors/scaler.py
 - [x] evaluators/__init__.py
 - [x] evaluators/metrics.py
 - [x] evaluators/evaluator.py
