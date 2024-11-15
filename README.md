@@ -1,5 +1,5 @@
 # OOP_in_ML_python
-**IN PROGRESS** Project in Python that contains a simple, custom OOP based implementations of Machine Learning models.
+**IN PROGRESS** Project in Python that contains a simple, custom OOP based implementations of Machine Learning models. This project was designed to teach me how to implement a custom pipeline for data. While it is simple it can be scaled using the same architecture to be more complex.
 
 ## Completed Files
 
