@@ -20,11 +20,11 @@ The architecture is intentionally designed to be basic, but allows for future ex
 - [x] evaluators/__init__.py
 - [x] evaluators/metrics.py
 - [x] evaluators/evaluator.py
-- [ ] utils/__init__.py
-- [ ] utils/data_loader.py
+- [x] utils/__init__.py
+- [x] utils/data_loader.py
 - [ ] main.py
 - [ ] requirements.txt
-- [ ] README.md
+- [x] README.md
 
 ## Project Structure
 
