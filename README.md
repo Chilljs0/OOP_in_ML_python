@@ -1,5 +1,5 @@
 # OOP_in_ML_python
-***IN PROGRESS Project***
+
 This project in Python contains simple, custom OOP-based implementations of Machine Learning models. The project is designed to teach me how to implement a custom pipeline for data, with a focus on learning and practicing the concepts of ETL (Extract, Transform, Load).
 
 While the current implementation is simple, it demonstrates how to:
@@ -22,8 +22,8 @@ The architecture is intentionally designed to be basic, but allows for future ex
 - [x] evaluators/evaluator.py
 - [x] utils/__init__.py
 - [x] utils/data_loader.py
-- [ ] main.py
-- [ ] requirements.txt
+- [x] main.py
+- [x] requirements.txt
 - [x] README.md
 
 ## Project Structure
