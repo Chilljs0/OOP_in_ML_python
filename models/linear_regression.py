@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 class LinearRegression:
     """
@@ -12,8 +13,6 @@ class LinearRegression:
 
     def __init__(self, verbose=False):
         """
-        Initializes the LinearRegression model.
-
         Args:
             verbose (bool): True enables verbose output for debugging.
         """
@@ -23,83 +22,105 @@ class LinearRegression:
 
     def _log(self, message):
         """
-        Helper method for logging messages.
+        Logging messages.
 
         Args:
-            message (str).
+            message (str): The message to log.
         """
         if self.verbose:
             print(message)
 
-    def fit(self, X, y):
+    def fit(self, x, y):
         """
 
         Args:
-            X (np.ndarray): The input features, shape (n_samples, n_features).
+            x (np.ndarray): The input features, shape (n_samples, n_features).
             y (np.ndarray): The target values, shape (n_samples,).
 
         Raises:
-            ValueError: If X or y is not a 2D or 1D array.
+            ValueError: If x or y is not a 2D or 1D array.
         """
-        if not isinstance(X, np.ndarray) or not isinstance(y, np.ndarray):
-            raise ValueError("X and y must be numpy arrays.")
-        if len(X.shape) != 2 or len(y.shape) != 1:
-            raise ValueError("X must be a 2D array and y must be a 1D array.")
+        if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray):
+            raise ValueError("x and y must be numpy arrays.")
+        if len(x.shape) != 2 or len(y.shape) != 1:
+            raise ValueError("x must be a 2D array and y must be a 1D array.")
 
-        X_with_intercept = np.c_[np.ones(X.shape[0]), X]
+        x_with_intercept = np.c_[np.ones(x.shape[0]), x]
 
         self._log("Fitting the model...")
-      
-        """Normal equation"""
-      
-        beta = np.linalg.inv(X_with_intercept.T @ X_with_intercept) @ X_with_intercept.T @ y
+        beta = np.linalg.inv(x_with_intercept.T @ x_with_intercept) @ x_with_intercept.T @ y
         self.intercept = beta[0]
         self.coefficients = beta[1:]
         self._log(f"Model fitted. Intercept: {self.intercept}, Coefficients: {self.coefficients}")
 
-    def predict(self, X):
+    def predict(self, x):
         """
-        Makes predictions using the trained Linear Regression model.
-
         Args:
-            X (np.ndarray): The input features, shape (n_samples, n_features).
+            x (np.ndarray): The input features, shape (n_samples, n_features).
 
         Returns:
             np.ndarray: The predicted values, shape (n_samples,).
 
         Raises:
-            ValueError: If X is not a 2D numpy array.
+            ValueError: If x is not a 2D numpy array.
         """
-        if not isinstance(X, np.ndarray) or len(X.shape) != 2:
-            raise ValueError("X must be a 2D numpy array.")
+        if not isinstance(x, np.ndarray) or len(x.shape) != 2:
+            raise ValueError("x must be a 2D numpy array.")
 
         self._log("Making predictions...")
-        predictions = self.intercept + X @ self.coefficients
+        predictions = self.intercept + x @ self.coefficients
         self._log(f"Predictions: {predictions}")
         return predictions
 
-    def R2(self, X, y):
+    def R2(self, x, y):
         """
-        Calculates the R-squared value to evaluate performance.
-
         Args:
-            X (np.ndarray): The input features, shape (n_samples, n_features).
+            x (np.ndarray): The input features, shape (n_samples, n_features).
             y (np.ndarray): The true target values, shape (n_samples,).
 
         Returns:
             float: The R-squared value.
 
         Raises:
-            ValueError: If X or y is not a 2D or 1D array.
+            ValueError: If x or y is not a 2D or 1D numpy array.
         """
-        if not isinstance(X, np.ndarray) or not isinstance(y, np.ndarray):
-            raise ValueError("X and y must be numpy arrays.")
+        if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray):
+            raise ValueError("x and y must be numpy arrays.")
         if len(X.shape) != 2 or len(y.shape) != 1:
-            raise ValueError("X must be a 2D array and y must be a 1D array.")
+            raise ValueError("x must be a 2D array and y must be a 1D array.")
 
-        y_pred = self.predict(X)
+        y_pred = self.predict(x)
         ss_total = np.sum((y - np.mean(y)) ** 2)
         ss_residual = np.sum((y - y_pred) ** 2)
         r_squared = 1 - (ss_residual / ss_total)
         self._log(f"R-squared: {r_squared}")
         return r_squared
+
+    def plot_predictions(self, x, y):
+        """
+        Plots the true values and the model's predictions.
+
+        Args:
+            x (np.ndarray): The input features, shape (n_samples, n_features).
+            y (np.ndarray): The true target values, shape (n_samples,).
+
+        Raises:
+            ValueError: If x or y is not a 2D or 1D numpy array.
+        """
+        if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray):
+            raise ValueError("x and y must be numpy arrays.")
+        if len(x.shape) != 2 or len(y.shape) != 1:
+            raise ValueError("x must be a 2D array and y must be a 1D array.")
+        if x.shape[1] != 1:
+            raise ValueError("plot_predictions only works for single-feature data.")
+
+        y_pred = self.predict(x)
+
+        plt.figure(figsize=(8, 6))
+        plt.scatter(x, y, color='blue', label='True values', alpha=0.6)
+        plt.plot(x, y_pred, color='red', label='Predicted line', linewidth=2)
+        plt.xlabel("Feature")
+        plt.ylabel("Target")
+        plt.title("Linear Regression: True vs. Predicted Values")
+        plt.legend()
+        plt.show()
