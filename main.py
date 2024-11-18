@@ -21,8 +21,8 @@ def main():
 
     # Separate features and target variable
     target_column = 'price'
-    x = data.drop(columns=[target_column])
     y = data[target_column].values
+    x = data.drop(columns=[target_column])
 
     # Preprocess the data
     encoder = CategoricalEncoder()
