@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from collections import Counter
+from sklearn.decomposition import PCA
 
 class KNN:
     """
@@ -68,13 +69,13 @@ class KNN:
             int/float: The predicted label for the data point.
         """
         distances = [self._compute_distance(x, x_train) for x_train in self.x_train]
-        self._log(f"Distances: {distances}")
+        # self._log(f"Distances: {distances}")
 
         k_indices = np.argsort(distances)[:self.k]
-        self._log(f"Indices of k nearest neighbors: {k_indices}")
+        # self._log(f"Indices of k nearest neighbors: {k_indices}")
 
         k_nearest_labels = [self.y_train[i] for i in k_indices]
-        self._log(f"Labels of k nearest neighbors: {k_nearest_labels}")
+        # self._log(f"Labels of k nearest neighbors: {k_nearest_labels}")
 
         most_common = Counter(k_nearest_labels).most_common(1)[0][0]
         return most_common
@@ -97,31 +98,36 @@ class KNN:
         predictions = [self._predict_single_point(x_point) for x_point in x]
         return np.array(predictions)
 
-    def plot_neighbors(self, x, y, test_point):
+    def plot_neighbors(self, x, y):
         """
+        Plots the data points in a 2D scatter plot using PCA to reduce features
+        to two dimensions, with colors representing different classes.
+
         Args:
-            x (np.ndarray): The training data features, shape (n_samples, 2).
-            y (np.ndarray): The training data labels, shape (n_samples,).
-            test_point (np.ndarray): The test point to visualize, shape (2,).
+            x (np.ndarray): The input features, shape (n_samples, n_features).
+            y (np.ndarray): The target labels, shape (n_samples,).
 
         Raises:
-            ValueError: If x does not have 2 features.
+            ValueError: If x or y is not a 2D or 1D numpy array.
         """
-        if x.shape[1] != 2:
-            raise ValueError("plot_neighbors only works for 2D feature data.")
+        save_path = 'plots/KNNPlot.png'
 
-        distances = [self._compute_distance(test_point, x_train) for x_train in x]
-        k_indices = np.argsort(distances)[:self.k]
+        if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray):
+            raise ValueError("x and y must be numpy arrays.")
+        if len(x.shape) != 2 or len(y.shape) != 1:
+            raise ValueError("x must be a 2D array and y must be a 1D array.")
+
+        pca = PCA(n_components=2)
+        x_pca = pca.fit_transform(x)
 
         plt.figure(figsize=(8, 6))
-        for label in np.unique(y):
-            plt.scatter(x[y == label, 0], x[y == label, 1], label=f"Class {label}", alpha=0.6)
+        unique_classes = np.unique(y)
+        for label in unique_classes:
+            plt.scatter(x_pca[y == label, 0], x_pca[y == label, 1], label=f"Class {label}", alpha=0.6)
 
-        plt.scatter(x[k_indices, 0], x[k_indices, 1], color='red', edgecolor='black', label='Neighbors', s=100, marker='o')
+        plt.xlabel("Principal Component 1")
+        plt.ylabel("Principal Component 2")
+        plt.title("KNN: Scatter Plot of All Relationships (PCA)")
 
-        plt.scatter(test_point[0], test_point[1], color='black', label='Test Point', s=100, marker='x')
-        plt.xlabel("Feature 1")
-        plt.ylabel("Feature 2")
-        plt.title(f"K-Nearest Neighbors (k={self.k})")
-        plt.legend()
+        plt.savefig(save_path, bbox_inches='tight')
         plt.show()
