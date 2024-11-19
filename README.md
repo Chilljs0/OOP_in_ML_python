@@ -9,23 +9,6 @@ Transform data using custom preprocessing steps, such as encoding categorical va
 Load the transformed data into machine learning models for training and evaluation.
 The architecture is intentionally designed to be basic, but allows for future expansion to handle more complex features.
 
-## Completed Files
-
-- [x] models/__init__.py
-- [x] models/linear_regression.py
-- [x] models/knn.py
-- [x] preprocessors/__init__.py
-- [x] preprocessors/encoder.py
-- [x] preprocessors/scaler.py
-- [x] evaluators/__init__.py
-- [x] evaluators/metrics.py
-- [x] evaluators/evaluator.py
-- [x] utils/__init__.py
-- [x] utils/data_loader.py
-- [x] main.py
-- [x] requirements.txt
-- [x] README.md
-
 ## Project Structure
 
 Breakdown of each folder and file in the project.
@@ -34,6 +17,8 @@ Breakdown of each folder and file in the project.
 
 - `data/`: Folder for storing datasets.
   - `Housing.csv`: Example dataset.
+
+- `plots/`: Folder for storing model result plots.
 
 - `models/`: Contains implementations of machine learning models.
   - `__init__.py`: Initializes the models package.
